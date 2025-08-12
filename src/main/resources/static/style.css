@@ -1,0 +1,220 @@
+:root {
+    --primary-bg: #111;
+    --secondary-bg: #222;
+    --dark-bg: #1e1e1e;
+    --text-light: white;
+    --text-dark: #333;
+    --text-gray: #ccc;
+    --page-bg: #f4f4f4;
+    --content-bg: white;
+    --shadow-color: rgba(0,0,0,0.1);
+    --content-padding: 20px;
+    --section-bg: transparent;
+    --accent-color: #C0C0C0;
+    --accent-dark: #000000;
+    --transition-speed: 0.4s;
+}
+
+[data-theme="dark"] {
+    --primary-bg: #2a2a2a;
+    --secondary-bg: #3a3a3a;
+    --dark-bg: #252525;
+    --text-light: #f5f5f5;
+    --text-dark: #e5e5e5;
+    --text-gray: #b0b0b0;
+    --page-bg: #222222;
+    --content-bg: #2d2d2d;
+    --shadow-color: rgba(0,0,0,0.3);
+    --section-bg: #353535;
+    --accent-color: #9370DB;
+    --accent-dark: #483D8B;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: var(--page-bg);
+    color: var(--text-dark);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: background var(--transition-speed), color var(--transition-speed);
+}
+
+.screen {
+    background: var(--content-bg);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px var(--shadow-color);
+    text-align: center;
+    z-index: 1;
+    transition: all var(--transition-speed);
+}
+
+.center-box {
+    background: var(--content-bg);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px var(--shadow-color);
+    text-align: center;
+    z-index: 1;
+    transition: all var(--transition-speed);
+}
+
+.vtuber-avatar {
+    width: 200px;
+    height: 200px;
+    margin: 20px auto;
+    border-radius: 50%;
+    border: 2px solid var(--accent-color);
+    display: block;
+}
+
+.chat-box {
+    margin: 20px auto;
+    padding: 10px;
+    background-color: var(--section-bg);
+    height: 100px;
+    overflow-y: auto;
+    border-radius: 5px;
+    border: 1px solid var(--text-gray);
+}
+
+/* Остальные стили из новой вёрстки */
+.button-base {
+    position: relative;
+    padding: 1rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    color: var(--text-light);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    overflow: hidden;
+    z-index: 1;
+    margin: 5px 0;
+    display: inline-block;
+    box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+.button-base:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+.stream-button {
+    background-color: var(--accent-color);
+    padding: 1.2rem 2.5rem;
+    font-size: 1.1rem;
+}
+
+.stream-button:hover {
+    background-color: var(--accent-dark);
+}
+
+.tab-button {
+    background-color: var(--secondary-bg);
+    flex: 1;
+    margin: 0 3px;
+    padding: 0.8rem 0.5rem;
+    font-size: 0.9rem;
+}
+
+.tab-button:hover, .tab-button.active {
+    background-color: var(--primary-bg);
+}
+
+.upgrade-button {
+    background-color: var(--secondary-bg);
+    width: 100%;
+}
+
+.upgrade-button:hover {
+    background-color: var(--primary-bg);
+}
+
+.theme-toggle {
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    background-color: var(--dark-bg);
+    z-index: 5;
+}
+
+.menu-button {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 20;
+    padding: 12px;
+    background: var(--content-bg);
+    border-radius: 50%;
+    box-shadow: 0 2px 5px var(--shadow-color);
+    transition: all var(--transition-speed);
+}
+
+.menu-button div {
+    background: var(--text-dark);
+    height: 3px;
+    margin: 3px 0;
+    width: 25px;
+    border-radius: 2px;
+    transition: all var(--transition-speed);
+}
+
+.sidebar {
+    position: fixed;
+    right: -320px;
+    top: 70px;
+    width: 300px;
+    height: calc(100% - 80px);
+    background: var(--content-bg);
+    box-shadow: -2px 0 5px var(--shadow-color);
+    overflow-y: auto;
+    transition: right var(--transition-speed);
+    padding: 20px;
+    z-index: 10;
+}
+
+.sidebar.open {
+    right: 0;
+}
+
+.tabs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.upgrade {
+    border: 1px solid var(--text-gray);
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background: var(--section-bg);
+    transition: all var(--transition-speed);
+}
+
+@media (max-width: 768px) {
+    .theme-toggle {
+        left: 10px;
+        bottom: 10px;
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+}
