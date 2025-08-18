@@ -6,7 +6,16 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<script>
+    // Проверка токена ПЕРВОЙ
+    const token = localStorage.getItem('jwtToken');
+    console.log("Токен при загрузке index.html:", token); // Проверьте консоль
 
+    if (!token) {
+        console.log("Токен не найден, перенаправляю...");
+        window.location.href = 'login.html';
+    }
+</script>
 <!-- Экран настройки (старый функционал) -->
 <div id="customization-screen" class="screen">
     <h1>Создай своего VTuber!</h1>
