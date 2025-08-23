@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users")      // Add link with GameStateEntity
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,10 +18,8 @@ public class UserEntity {
     @Column(nullable = false)
     private String password;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "role")
-    private List<String> roles = new ArrayList<>();
+    @Column(nullable = false)
+    private String role;
 
     public Long getId() { return id; }
 
@@ -33,8 +31,8 @@ public class UserEntity {
         return password;
     }
 
-    public List<String> getRoles() {
-        return roles;
+    public String getRole() {
+        return role;
     }
 
     public void setUsername(String username) {
@@ -45,18 +43,15 @@ public class UserEntity {
         this.password = password;
     }
 
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public static UserEntity create(String username, String password) {
         UserEntity user = new UserEntity();
         user.setUsername(username);
         user.setPassword(password);
-
-        List<String> roles = new ArrayList<>();
-        roles.add("USER");
-        user.setRoles(roles);
+        user.setRole("USER");
         return user;
     }
 }

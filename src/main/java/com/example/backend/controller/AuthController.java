@@ -4,17 +4,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.backend.application.UserService;
 import com.example.backend.dto.request.LoginRequest;
 import com.example.backend.dto.request.SignupRequest;
-import com.example.backend.dto.response.JwtResponse;
 import com.example.backend.exception.InsufficientUsernameException;
 import com.example.backend.security.JwtTokenProvider;
-import com.example.backend.security.UserPrincipal;
 
 import jakarta.validation.Valid;
 
@@ -37,6 +34,10 @@ public class AuthController {
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest request) {
+        if (!userService.existsByUsername(request.getUsername())) {
+            throw new InsufficientUsernameException("User with that username does not exist");
+        }
+
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(),
@@ -44,8 +45,6 @@ public class AuthController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtTokenProvider.generateToken(authentication);
-
-        // UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
 
         return ResponseEntity.ok(Map.of("token", jwt));
     }

@@ -32,25 +32,16 @@ public class UserService {
     }
 
     @Transactional
-    public void add(String username, String password) {
-        UserEntity user = UserEntity.create(username, passwdEnc.encode(password));
-        userRepo.save(user);
-    }
-
-    @Transactional
-    public String remove(Long id) {
-        if (!userRepo.existsById(id)) {
-            throw new NotFoundException(HttpStatus.NOT_FOUND, "User not found");
-        }
-        userRepo.deleteById(id);
-        return "User successfully deleted.";
-    }
-
-    @Transactional
     public void edit(Long id, UserEntity user) {
         if (!userRepo.existsById(id)) {
             throw new NotFoundException(HttpStatus.NOT_FOUND, "User not found");
         }
+        userRepo.save(user);
+    }
+
+    @Transactional
+    public void add(String username, String password) {
+        UserEntity user = UserEntity.create(username, passwdEnc.encode(password));
         userRepo.save(user);
     }
 

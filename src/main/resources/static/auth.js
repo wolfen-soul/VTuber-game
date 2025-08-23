@@ -12,10 +12,9 @@ document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
             body: JSON.stringify({ username, password })
         });
 
-        console.log("Получен ответ:", response.status);
         if (!response.ok) {
             const errorData = await response.text();
-            throw new Error(response.status, errorData);
+            throw new Error(errorData);
         }
 
         const data = await response.json();
@@ -25,7 +24,6 @@ document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
             return;
         }
         localStorage.setItem('jwtToken', token);
-        alert(localStorage.getItem('jwtToken'));
         setTimeout(() => {
             window.location.href = '/index.html';
         }, 1000);
@@ -49,8 +47,8 @@ document.getElementById('registerForm')?.addEventListener('submit', async (e) =>
         });
 
         if (!response.ok) {
-            const error = await response.json();
-            throw new Error(error.message || 'Error');
+                    const errorData = await response.text();
+                    throw new Error(errorData);
         }
 
         alert('Success! Now you can sign in.');

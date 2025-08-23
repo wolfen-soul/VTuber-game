@@ -23,10 +23,7 @@ public class UserPrincipal implements UserDetails {
     }
 
     public static UserPrincipal create(UserEntity user) {
-        List<GrantedAuthority> authorities = user.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
-                .collect(Collectors.toList());
-
+        List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
         return new UserPrincipal(user, authorities);
     }
 
