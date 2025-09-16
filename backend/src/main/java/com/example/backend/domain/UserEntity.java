@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "users")      // Add link with GameStateEntity
+@Table(name = "users")
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +21,9 @@ public class UserEntity {
     @Column(nullable = false)
     private String role;
 
-    public Long getId() { return id; }
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "game_state_id", referencedColumnName = "id")
+    private GameStateEntity gameState;
 
     public String getUsername() {
         return username;
@@ -35,23 +37,47 @@ public class UserEntity {
         return role;
     }
 
-    public void setUsername(String username) {
+    public GameStateEntity getGameState() {
+        return gameState;
+    }
+
+    protected void setUsername(String username) {
         this.username = username;
     }
 
-    public void setPassword(String password) {
+    protected void setPassword(String password) {
         this.password = password;
     }
 
-    public void setRole(String role) {
+    protected void setRole(String role) {
         this.role = role;
     }
 
-    public static UserEntity create(String username, String password) {
-        UserEntity user = new UserEntity();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setRole("USER");
-        return user;
+    protected void setGameState(GameStateEntity gameState) {
+        this.gameState = gameState;
+    }
+
+    protected UserEntity() {}
+
+    public UserEntity(String username, String password) {
+        this.username = username;
+        this.password = password;
+        this.role = "USER";
+        this.gameState = null;
+    }
+
+
+    public void createGameState(String nickname) {
+        if (this.gameState != null) {
+            throw new IllegalStateException("User already has a game state");
+        }
+        this.gameState = GameStateEntity.create(nickname);
+    }
+
+    public void clearGameState() {
+        if (this.gameState != null) {
+            this.gameState.clearOwnedItems();
+            this.gameState = null;
+        }
     }
 }

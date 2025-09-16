@@ -52,7 +52,7 @@ public class SecurityConfig{
                         ex.authenticationEntryPoint((req, res, e) -> {
                             res.setContentType("application/json");
                             res.setStatus(HttpStatus.UNAUTHORIZED.value());
-                            res.getWriter().write("Error: User is not authorized");
+                            res.getWriter().write("{\"error\": \"User is not authorized\", \"code\": \"NO_TOKEN\"}");
                         }))
                 .addFilterBefore(
                         new JwtTokenFilter(jwtTokenProvider, userPrincipalService),
@@ -77,7 +77,7 @@ public class SecurityConfig{
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:3000"));
+        configuration.setAllowedOrigins(List.of("https://www.vtubers.wiki", "https://vtubers.wiki"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);

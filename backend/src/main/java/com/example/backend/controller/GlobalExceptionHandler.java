@@ -1,5 +1,6 @@
 package com.example.backend.controller;
 
+import com.example.backend.exception.InsufficientBalanceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -7,10 +8,17 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.example.backend.exception.InsufficientUsernameException;
 import com.example.backend.exception.NotFoundException;
 
+import java.util.Map;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     // 400 - Bad Request
-    @ExceptionHandler(InsufficientUsernameException.class)
+    @ExceptionHandler({
+            IllegalArgumentException.class,
+            IllegalStateException.class,
+            InsufficientUsernameException.class,
+            InsufficientBalanceException.class
+    })
     public ResponseEntity<String> handleBadRequest(Exception ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error: " + ex.getMessage());
     }
