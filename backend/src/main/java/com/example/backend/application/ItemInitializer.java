@@ -1,0 +1,206 @@
+package com.example.backend.application;
+
+import com.example.backend.domain.ItemEntity;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+
+@Component
+public class ItemInitializer implements CommandLineRunner {
+    private final ItemService itemService;
+    public static final List<ItemEntity> INITIAL_ITEMS = List.of(
+            new ItemEntity("pc-cases", "Eurocase A39 ARGB", 1, 3500, "viewers", 0.19),
+            new ItemEntity("pc-cases", "Zalman i3 Black", 2, 4000, "viewers", 0.27),
+            new ItemEntity("pc-cases", "Fractal Design Focus G", 3, 6500, "viewers", 0.39),
+            new ItemEntity("pc-cases", "1STPLAYER Megaview MV8-TP", 4, 8500, "viewers", 0.53),
+            new ItemEntity("pc-cases", "Deepcool CG540", 5, 10000, "viewers", 0.68),
+            new ItemEntity("pc-cases", "MSI MAG FORGE 100R", 6, 12000, "viewers", 0.87),
+            new ItemEntity("pc-cases", "Deepcool Matrexx 50 ADD-RGB 4F", 7, 14000, "viewers", 1.07),
+            new ItemEntity("pc-cases", "Deepcool Focus G", 8, 25000, "viewers", 1.36),
+            new ItemEntity("pc-cases", "Lian Li PC-O11 Dynamic EVO XL", 9, 60000, "viewers", 1.84),
+            new ItemEntity("pc-cases", "Corsair Obsidian Series 1000D", 10, 95000, "viewers", 2.43),
+
+            new ItemEntity("pc-cpus", "Ryzen 5 5600", 1, 8000, "viewers", 0.58),
+            new ItemEntity("pc-cpus", "Ryzen 5 7600X", 2, 17000, "viewers", 1.07),
+            new ItemEntity("pc-cpus", "Ryzen 7 7700X", 3, 20500, "viewers", 1.31),
+            new ItemEntity("pc-cpus", "Ryzen 5 7600X3D", 4, 32000, "viewers", 1.84),
+            new ItemEntity("pc-cpus", "Ryzen 7 7800X3D", 5, 36500, "viewers", 2.14),
+            new ItemEntity("pc-cpus", "Ryzen 9 9900X", 6, 40000, "viewers", 2.38),
+            new ItemEntity("pc-cpus", "Ryzen 7 9800X3D", 7, 49000, "viewers", 2.72),
+            new ItemEntity("pc-cpus", "Ryzen 9 9950X", 8, 55000, "viewers", 3.01),
+            new ItemEntity("pc-cpus", "Ryzen 9 9900X3D", 9, 63000, "viewers", 3.40),
+            new ItemEntity("pc-cpus", "Ryzen 9 9950X3D", 10, 74000, "viewers", 3.88),
+
+            new ItemEntity("pc-gpus", "GTX 1660 SUPER", 1, 15000, "viewers", 0.68),
+            new ItemEntity("pc-gpus", "RTX 3060", 2, 25000, "viewers", 1.07),
+            new ItemEntity("pc-gpus", "RTX 3070", 3, 30000, "viewers", 1.46),
+            new ItemEntity("pc-gpus", "RTX 4060", 4, 35000, "viewers", 1.65),
+            new ItemEntity("pc-gpus", "RTX 5060", 5, 40000, "viewers", 1.89),
+            new ItemEntity("pc-gpus", "RTX 4070 SUPER", 6, 55000, "viewers", 2.23),
+            new ItemEntity("pc-gpus", "RTX 5070", 7, 65000, "viewers", 2.52),
+            new ItemEntity("pc-gpus", "RTX 5080", 8, 115000, "viewers", 2.82),
+            new ItemEntity("pc-gpus", "RTX 4090", 9, 170000, "viewers", 3.50),
+            new ItemEntity("pc-gpus", "RTX 5090", 10, 255000, "viewers", 4.66),
+
+            new ItemEntity("pc-motherboards", "Gigabyte B450M K", 1, 6500, "viewers", 0.29),
+            new ItemEntity("pc-motherboards", "ASRock A520M-HDV", 2, 7000, "viewers",0.34),
+            new ItemEntity("pc-motherboards", "ASRock B550M Pro4", 3,11000, "viewers", 0.53),
+            new ItemEntity("pc-motherboards", "MSI B550-A PRO", 4, 13000, "viewers", 0.73),
+            new ItemEntity("pc-motherboards", "ASUS PRIME B650M-A WIFI", 5, 16000, "viewers", 0.92),
+            new ItemEntity("pc-motherboards", "Gigabyte B650 AORUS ELITE AX", 6, 19000, "viewers", 1.16),
+            new ItemEntity("pc-motherboards", "MSI MAG B650 Tomahawk WiFi", 7, 22000, "viewers", 1.31),
+            new ItemEntity("pc-motherboards", "ASUS TUF GAMING X670-PLUS WIFI", 8, 28000, "viewers", 1.55),
+            new ItemEntity("pc-motherboards", "МGigabyte X670E AORUS MASTER", 9, 43000, "viewers", 2.04),
+            new ItemEntity("pc-motherboards", "ASRock X870E Taichi", 10, 50000, "viewers", 2.43),
+
+            new ItemEntity("pc-ram", "Patriot Viper 4 Blackout 2×8 ГБ (16 ГБ)", 1, 5000, "viewers", 0.29),
+            new ItemEntity("pc-ram", "Crucial Ballistix Sport LT 2×8 ГБ (16 ГБ)", 2, 6000, "viewers", 0.37),
+            new ItemEntity("pc-ram", "Kingston Fury Beast 2×8 ГБ (16 ГБ)", 3, 7000, "viewers", 0.47),
+            new ItemEntity("pc-ram", "Corsair Vengeance LPX 2×16 ГБ (32 ГБ)", 4, 10000, "viewers", 0.68),
+            new ItemEntity("pc-ram", "G.Skill Ripjaws V 2×16 ГБ (32 ГБ)", 5, 12000, "viewers", 0.82),
+            new ItemEntity("pc-ram", "Corsair Vengeance RGB Pro 2×16 ГБ (32 ГБ)", 6, 15000, "viewers", 1.02),
+            new ItemEntity("pc-ram", "Kingston Fury Beast DDR5 2×16 ГБ (32 ГБ)", 7, 18000, "viewers", 1.21),
+            new ItemEntity("pc-ram", "G.Skill Trident Z5 RGB 2×16 ГБ (32 ГБ)", 8, 22000, "viewers", 1.50),
+            new ItemEntity("pc-ram", "Corsair Dominator Platinum RGB DDR5 2×32 ГБ (64 ГБ)", 9, 35000, "viewers", 1.89),
+            new ItemEntity("pc-ram", "G.Skill Trident Z5 Royal DDR5 2×32 ГБ (64 ГБ)", 10,50000, "viewers", 2.33),
+
+            new ItemEntity("pc-storage", "Kingston A400 240 ГБ (SATA)", 1, 2000, "viewers", 0.19),
+            new ItemEntity("pc-storage", "Crucial BX500 480 ГБ (SATA)", 2, 3200, "viewers",  0.29),
+            new ItemEntity("pc-storage", "ADATA SU650 480 ГБ (SATA)", 3, 3500, "viewers", 0.34),
+            new ItemEntity("pc-storage", "WD Blue SN570 500 ГБ (NVMe)", 4, 4500, "viewers", 0.44),
+            new ItemEntity("pc-storage", "Samsung 970 EVO Plus 500 ГБ (NVMe)", 5, 6500, "viewers", 0.63),
+            new ItemEntity("pc-storage", "Crucial P3 Plus 1 ТБ (NVMe)", 6, 7000, "viewers", 0.78),
+            new ItemEntity("pc-storage", "WD Black SN850 1 ТБ (NVMe Gen4)", 7, 14000, "viewers", 1.26),
+            new ItemEntity("pc-storage", "Samsung 980 Pro 1 ТБ (NVMe Gen4)", 8, 15000, "viewers", 1.36),
+            new ItemEntity("pc-storage", "Sabrent Rocket 4 Plus 2 ТБ (NVMe Gen4)", 9, 30000, "viewers", 1.89),
+            new ItemEntity("pc-storage", "Corsair MP600 Pro LPX 2 ТБ (NVMe Gen4)", 10, 35000, "viewers", 2.23),
+
+            new ItemEntity("pc-cooling", "Deepcool GAMMAXX 400 V2 (1×120 мм)", 1, 2000, "viewers", 0.24),
+            new ItemEntity("pc-cooling", "Cooler Master Hyper 212 Black Edition (1×120 мм)", 2, 3000, "viewers", 0.34),
+            new ItemEntity("pc-cooling", "be quiet! Pure Rock 2 (1×120 мм)", 3, 3500, "viewers", 0.41),
+            new ItemEntity("pc-cooling", "Noctua NH-U12S redux (1×120 мм)", 4, 4500, "viewers",  0.53),
+            new ItemEntity("pc-cooling", "Scythe Mugen 5 Rev. C (1×120 мм)", 5, 5500, "viewers", 0.68),
+            new ItemEntity("pc-cooling", "be quiet! Dark Rock 4 (1×135 мм)", 6, 7000, "viewers", 0.92),
+            new ItemEntity("pc-cooling", "Noctua NH-D15 (2×140 мм)", 7, 10000, "viewers", 1.21),
+            new ItemEntity("pc-cooling", "Deepcool Assassin IV (2×140 мм)", 8, 12000, "viewers", 1.41),
+            new ItemEntity("pc-cooling", "Arctic Liquid Freezer II 280 (СЖО, 2×140 мм))", 9, 15000, "viewers", 1.70),
+            new ItemEntity("pc-cooling", "Corsair iCUE H150i Elite Capellix (СЖО, 3×120 мм)", 10,18000, "viewers", 2.04),
+
+            new ItemEntity("models-items", "Начальная PNG-модель", 1, 3000, "donations", 1.2),
+            new ItemEntity("models-items", "Продвинутая PNG-модель", 2, 10000, "donations", 1.35),
+            new ItemEntity("models-items", "Премиум PNG-модель", 3, 18000, "donations", 1.5),
+            new ItemEntity("models-items", "Абсолютная PNG-модель", 4, 25000, "donations", 1.6),
+            new ItemEntity("models-items", "Начальная 2D-модель", 5, 50000, "donations", 1.75),
+            new ItemEntity("models-items", "Продвинутая 2D-модель", 6, 100000, "donations", 2),
+            new ItemEntity("models-items", "Премиум 2D-модель", 7, 150000, "donations", 2.25),
+            new ItemEntity("models-items", "Абсолютная 2D-модель", 8, 20000, "donations", 2.5),
+            new ItemEntity("models-items", "3D-модель Live2D", 9, 250000, "donations", 2.8),
+            new ItemEntity("models-items", "Модель для VR-Чата", 10, 300000, "donations", 3.2),
+
+            new ItemEntity("hardware-keyboards", "Defender Stalker GK-165L", 1, 1000, "subscribers", 0.18),
+            new ItemEntity("hardware-keyboards", "A4Tech Bloody B120N", 2, 2000, "subscribers", 0.32),
+            new ItemEntity("hardware-keyboards", "Redragon Kumara K552", 3, 3500, "subscribers", 0.53),
+            new ItemEntity("hardware-keyboards", "HyperX Alloy Origins Core", 4, 6000, "subscribers", 0.96),
+            new ItemEntity("hardware-keyboards", "Logitech G413 TKL SE", 5, 7000, "subscribers", 1.23),
+            new ItemEntity("hardware-keyboards", "Razer BlackWidow V3", 6, 9000, "subscribers", 1.67),
+            new ItemEntity("hardware-keyboards", "SteelSeries Apex Pro TKL", 7, 16000, "subscribers", 2.19),
+            new ItemEntity("hardware-keyboards", "Logitech G915 TKL Lightspeed", 8, 20000, "subscribers", 2.72),
+            new ItemEntity("hardware-keyboards", "Corsair K100 RGB", 9, 25000, "subscribers", 3.42),
+            new ItemEntity("hardware-keyboards", "Asus ROG Claymore II", 10, 28000, "subscribers", 3.86),
+
+            new ItemEntity("hardware-mice", "Logitech M90", 1, 800, "subscribers", 0.18),
+            new ItemEntity("hardware-mice", "Redragon Cobra M711", 2, 2000, "subscribers", 0.32),
+            new ItemEntity("hardware-mice", "Logitech G102 Lightsync", 3, 2500, "subscribers", 0.49),
+            new ItemEntity("hardware-mice", "Razer DeathAdder Essential", 4, 3000, "subscribers", 0.70),
+            new ItemEntity("hardware-mice", "SteelSeries Rival 3", 5, 4000, "subscribers", 0.96),
+            new ItemEntity("hardware-mice", "Logitech G502 HERO", 6, 6000, "subscribers", 1.49),
+            new ItemEntity("hardware-mice", "Razer Basilisk V3", 7, 7500, "subscribers", 1.93),
+            new ItemEntity("hardware-mice", "Glorious Model O", 8, 9000, "subscribers", 2.37),
+            new ItemEntity("hardware-mice", "SteelSeries Aerox 9 Wireless", 9, 15000, "subscribers", 3.07),
+            new ItemEntity("hardware-mice", "Logitech G Pro X Superlight 2", 10, 20000, "subscribers", 3.51),
+
+            new ItemEntity("hardware-headphones", "SVEN AP-525", 1, 800, "subscribers", 0.18),
+            new ItemEntity("hardware-headphones", "Redragon Scylla H901", 2, 2000, "subscribers", 0.32),
+            new ItemEntity("hardware-headphones", "HyperX Cloud Stinger Core", 3,3000, "subscribers", 0.53),
+            new ItemEntity("hardware-headphones", "Logitech G332", 4, 4000, "subscribers", 0.79),
+            new ItemEntity("hardware-headphones", "Razer Kraken X", 5, 5000, "subscribers",1.05),
+            new ItemEntity("hardware-headphones", "SteelSeries Arctis Nova 1", 6, 6000, "subscribers", 1.49),
+            new ItemEntity("hardware-headphones", "HyperX Cloud II", 7, 9000, "subscribers", 2.02),
+            new ItemEntity("hardware-headphones", "Logitech G Pro X", 8, 12000, "subscribers", 2.54),
+            new ItemEntity("hardware-headphones", "SteelSeries Arctis Nova Pro", 9,25000, "subscribers", 3.42),
+            new ItemEntity("hardware-headphones", "Audeze Maxwell Wireless", 10, 40000, "subscribers", 4.21),
+
+            new ItemEntity("hardware-monitors", "AOC 24B1XHS 24″ (IPS, 75 Гц, FHD)", 1, 8000, "subscribers", 0.61),
+            new ItemEntity("hardware-monitors", "Philips 241V8 24″ (IPS, 75 Гц, FHD)", 2, 10000, "subscribers", 0.79),
+            new ItemEntity("hardware-monitors", "Samsung Odyssey LC24RG50 24″ (VA, 144 Гц, FHD)", 3, 15000, "subscribers", 1.23),
+            new ItemEntity("hardware-monitors", "Acer Nitro VG270 27″ (IPS, 144 Гц, FHD)", 4, 20000, "subscribers", 1.67),
+            new ItemEntity("hardware-monitors", "MSI Optix G271 27″ (IPS, 144 Гц, FHD)", 5, 25000, "subscribers", 2.19),
+            new ItemEntity("hardware-monitors", "Gigabyte M27Q 27″ (IPS, 170 Гц, QHD)", 6, 35000, "subscribers", 2.89),
+            new ItemEntity("hardware-monitors", "ASUS TUF Gaming VG32VQ 32″ (VA, 165 Гц, QHD)", 7, 40000, "subscribers", 3.33),
+            new ItemEntity("hardware-monitors", "LG UltraGear 27GP850-B 27″ (IPS, 180 Гц, QHD)", 8, 50000, "subscribers", 3.86),
+            new ItemEntity("hardware-monitors", "Samsung Odyssey G7 32″ (VA, 240 Гц, QHD)", 9, 70000, "subscribers", 4.74),
+            new ItemEntity("hardware-monitors", "ASUS ROG Swift PG32UQX 32″ (IPS, 144 Гц, 4K HDR)", 10, 100000, "subscribers", 5.61),
+
+            new ItemEntity("hardware-mats", "Defender MP-302", 1, 300, "subscribers", 0.09),
+            new ItemEntity("hardware-mats", "A4Tech X7-200MP", 2, 600, "subscribers", 0.14),
+            new ItemEntity("hardware-mats", "Redragon Capricorn P012", 3, 1000, "subscribers", 0.21),
+            new ItemEntity("hardware-mats", "SteelSeries QcK Small", 4, 1500, "subscribers", 0.35),
+            new ItemEntity("hardware-mats", "Razer Goliathus Medium", 5, 2500, "subscribers", 0.56),
+            new ItemEntity("hardware-mats", "Logitech G240 Cloth", 6, 3000, "subscribers", 0.79),
+            new ItemEntity("hardware-mats", "HyperX Fury S Pro XL", 7, 4000, "subscribers", 1.23),
+            new ItemEntity("hardware-mats", "SteelSeries QcK Heavy XXL", 8, 6000, "subscribers", 1.67),
+            new ItemEntity("hardware-mats", "Razer Firefly V2 (RGB, жесткий)", 9, 10000, "subscribers", 2.28),
+            new ItemEntity("hardware-mats", "Corsair MM1000 Qi Wireless Charging (зарядка + RGB)", 10, 15000, "subscribers", 2.81),
+
+            new ItemEntity("games-items", "Stardew Valley", 1, 600, "common", 1.10),
+            new ItemEntity("games-items", "Terraria", 2, 700, "common", 1.14),
+            new ItemEntity("games-items", "Among Us", 3, 800, "common", 1.18),
+            new ItemEntity("games-items", "Hollow Knight", 4, 1000, "common", 1.22),
+            new ItemEntity("games-items", "Cuphead", 5, 1200, "common", 1.26),
+            new ItemEntity("games-items", "Don’t Starve Together", 6, 1300, "common", 1.30),
+            new ItemEntity("games-items", "Dead Cells", 7, 1500, "common", 1.34),
+            new ItemEntity("games-items", "Outer Wilds", 8, 1800, "common", 1.38),
+            new ItemEntity("games-items", "Hades", 9, 2000, "common", 1.42),
+            new ItemEntity("games-items", "Valheim", 10, 2200, "common", 1.46),
+            new ItemEntity("games-items", "The Witcher 3: Wild Hunt GOTY", 11, 2500, "common", 1.50),
+            new ItemEntity("games-items", "Dark Souls III", 12, 3000, "common", 1.54),
+            new ItemEntity("games-items", "Sekiro: Shadows Die Twice", 13, 3500, "common", 1.58),
+            new ItemEntity("games-items", "Resident Evil 4 Remake", 14, 4000, "common", 1.62),
+            new ItemEntity("games-items", "Cyberpunk 2077: Phantom Liberty", 15, 4500, "common", 1.66),
+            new ItemEntity("games-items", "Elden Ring", 16, 5000, "common", 1.70),
+            new ItemEntity("games-items", "Baldur’s Gate 3", 17, 5500, "common", 1.74),
+            new ItemEntity("games-items", "Horizon Zero Dawn Complete Edition", 18, 6000, "common", 1.78),
+            new ItemEntity("games-items", "God of War (PC)", 19, 6500, "common", 1.82),
+            new ItemEntity("games-items", "Red Dead Redemption 2", 20, 7000, "common", 1.86),
+            new ItemEntity("games-items", "Marvel’s Spider-Man Remastered", 21, 7500, "common", 1.90),
+            new ItemEntity("games-items", "Forza Horizon 5", 22, 8000, "common", 1.94),
+            new ItemEntity("games-items", "Microsoft Flight Simulator", 23, 9000, "common", 1.98),
+            new ItemEntity("games-items", "Starfield", 24, 9500, "common", 2.02),
+            new ItemEntity("games-items", "Assassin’s Creed Mirage", 25, 10000, "common", 2.06),
+            new ItemEntity("games-items", "Diablo IV", 26, 11000, "common", 2.10),
+            new ItemEntity("games-items", "Final Fantasy XVI", 27, 12000, "common", 2.14),
+            new ItemEntity("games-items", "Call of Duty: Modern Warfare III", 28, 13000, "common", 2.18),
+            new ItemEntity("games-items", "The Last of Us Part I", 29, 14000, "common", 2.20),
+            new ItemEntity("games-items", "Half-Life: Alyx (VR)", 30, 15000, "common", 2.25),
+
+            new ItemEntity("vtuber-equipment-items", "Кольцевое освящение", 1, 7500, "events", 1.1),
+            new ItemEntity("vtuber-equipment-items", "Хромакей 3x3м", 2, 8000, "events", 1.2),
+            new ItemEntity("vtuber-equipment-items", "Мощный роутер для стримов", 3, 12000, "events", 1.3),
+            new ItemEntity("vtuber-equipment-items", "Освещение", 4, 15000, "events", 1.4),
+            new ItemEntity("vtuber-equipment-items", "4K веб-камера", 5, 18000, "events", 1.45),
+            new ItemEntity("vtuber-equipment-items", "Камера для трекинга", 6, 25000, "events", 1.5),
+            new ItemEntity("vtuber-equipment-items", "Аренда студии", 7, 40000, "events", 1.6)
+    );
+
+    public ItemInitializer(ItemService itemService) {
+        this.itemService = itemService;
+    }
+
+    @Override
+    public void run(String... args) {
+        if (itemService.all().isEmpty()) {
+            INITIAL_ITEMS.forEach(itemService::add);
+        }
+    }
+}

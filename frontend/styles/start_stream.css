@@ -1,0 +1,308 @@
+.difficulty-options {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+    gap: 5px;
+}
+
+.difficulty-option {
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+    padding: 8px 4px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid var(--accent-color);
+    background-color: var(--card-bg);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.difficulty-option:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.difficulty-option.selected {
+    border-color: var(--accent-color);
+    background-color: rgba(74, 144, 226, 0.15);
+    font-weight: bold;
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.3);
+}
+
+.difficulty-option.very-easy {
+    color: #27ae60;
+    border-color: #27ae60;
+}
+
+.difficulty-option.easy {
+    color: #2ecc71;
+    border-color: #2ecc71;
+}
+
+.difficulty-option.medium {
+    color: #f39c12;
+    border-color: #f39c12;
+}
+
+.difficulty-option.hard {
+    color: #e74c3c;
+    border-color: #e74c3c;
+}
+
+.difficulty-option.very-hard {
+    color: #c0392b;
+    border-color: #c0392b;
+}
+
+.difficulty-number {
+    font-size: 1.4em;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.difficulty-label {
+    font-size: 0.7em;
+    line-height: 1.1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+@media (max-width: 480px) {
+    .difficulty-options {
+        gap: 4px;
+    }
+
+    .difficulty-option {
+        padding: 6px 3px;
+    }
+
+    .difficulty-number {
+        font-size: 1.2em;
+    }
+
+    .difficulty-label {
+        font-size: 0.6em;
+    }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.stream-timer {
+    font-size: 2.5em;
+    font-weight: bold;
+    margin: 15px 0;
+    color: var(--accent-color);
+    animation: pulse 1s infinite;
+}
+
+.stream-status {
+    text-align: center;
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 12px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+}
+
+.status-message {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+}
+
+.ban-notification-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    padding: 20px;
+}
+
+.ban-notification-overlay.active {
+    opacity: 1;
+}
+
+.ban-notification {
+    background-color: var(--content-bg);
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    max-width: 450px;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transform: translateY(50px) scale(0.9);
+    opacity: 0;
+    transition: all 0.3s ease;
+    border: 2px solid var(--danger-color);
+}
+
+.ban-notification.active {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+
+.ban-notification-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    color: var(--danger-color);
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.ban-notification-content h2 {
+    color: var(--danger-color);
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.ban-notification-content p {
+    color: var(--text-dark);
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.ban-details {
+    background-color: rgba(244, 67, 54, 0.1);
+    border: 1px solid var(--danger-color);
+    border-radius: 10px;
+    padding: 15px;
+    margin: 20px 0;
+    text-align: left;
+}
+
+.ban-time, .ban-reason, .ban-suggestion {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    color: var(--text-dark);
+}
+
+.ban-time:last-child, .ban-reason:last-child, .ban-suggestion:last-child {
+    margin-bottom: 0;
+}
+
+.ban-time i, .ban-reason i, .ban-suggestion i {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+.ban-time i {
+    color: var(--danger-color);
+}
+
+.ban-reason i {
+    color: var(--warning-color);
+}
+
+.ban-suggestion i {
+    color: var(--accent-color);
+}
+
+.ban-suggestion {
+    background-color: rgba(74, 144, 226, 0.1);
+    border: 1px solid var(--accent-color);
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+
+.ban-notification-close {
+    background: linear-gradient(135deg, var(--danger-color), #d32f2f);
+    font-size: 1rem;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+    color: white;
+    font-weight: bold;
+}
+
+.ban-notification-close:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Адаптивность для уведомления о бане */
+@media (max-width: 480px) {
+    .ban-notification {
+        padding: 20px 15px;
+        margin: 10px;
+    }
+
+    .ban-notification-icon {
+        font-size: 3rem;
+    }
+
+    .ban-notification-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .ban-notification-content p {
+        font-size: 1rem;
+    }
+
+    .ban-details, .ban-suggestion {
+        padding: 12px;
+    }
+
+    .ban-time, .ban-reason, .ban-suggestion {
+        font-size: 0.9rem;
+    }
+
+    .ban-notification-close {
+        font-size: 0.9rem;
+        padding: 10px 20px;
+    }
+}
+
+.ban-notification .fa-shopping-cart {
+    color: #27ae60;
+}
+
+.ban-notification-shop {
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+    font-size: 1rem;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+    color: white;
+    font-weight: bold;
+}
+
+.ban-notification-shop:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
