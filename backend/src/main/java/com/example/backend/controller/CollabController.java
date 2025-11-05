@@ -70,7 +70,7 @@ public class CollabController {
         }
     }
 
-    @PostMapping("/remove")
+    @DeleteMapping("")
     public ResponseEntity<?> removeCollab(@AuthenticationPrincipal UserPrincipal userPrincipal) {
         try {
             collabService.leaveCollab(userPrincipal.getUsername());
@@ -80,21 +80,6 @@ public class CollabController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error removing collab");
-        }
-    }
-
-    @PostMapping("/check")      //FIXME: into /finishStream
-    public ResponseEntity<?> checkCollabs(@AuthenticationPrincipal UserPrincipal userPrincipal) {
-        try {
-            GameStateEntity gameState = userService.getGameState(userPrincipal.getUsername());
-
-            if (collabService.isCollabCompleted(gameState)) {
-                return ResponseEntity.ok("Collab is finished");
-            }
-            return ResponseEntity.ok("Collab is still going");
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError()
-                    .body("Error checking collab");
         }
     }
 }

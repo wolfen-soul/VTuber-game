@@ -4,12 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /* TODO:
-*    try Autowired
-*    mappers into services
-*    recreate apis correctly:
-*      CollabController - Post(check) -> Get(status)
-*      Agency/CollabController - Post(remove) -> Delete()
-*    refactor some time
+*   refactor some time:
+*     try Autowired
+*     mappers into services
 */
 @SpringBootApplication
 public class BackendApplication {

@@ -4,6 +4,7 @@ import com.example.backend.application.GameService;
 import com.example.backend.application.UserService;
 import com.example.backend.domain.GameStateEntity;
 import com.example.backend.dto.game.GameStateDto;
+import com.example.backend.dto.game.WolfRequirementsDto;
 import com.example.backend.mapper.GameStateMapper;
 import com.example.backend.security.UserPrincipal;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,7 @@ public class GameController {
         return ResponseEntity.ok(String.join("'", "The channel ", nickname, " is set up"));
     }
 
-    @GetMapping("/load")
+    @GetMapping("/state")
     public ResponseEntity<GameStateDto> loadGameState(@AuthenticationPrincipal UserPrincipal userPrincipal) {
         GameStateEntity gameState = userService.getGameState(userPrincipal.getUsername());
         return ResponseEntity.ok(gameStateMapper.toDto(gameState));
@@ -122,5 +123,25 @@ public class GameController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @GetMapping("/wolf/requirements")
+    public ResponseEntity<?> checkWolfRequirements(@AuthenticationPrincipal UserPrincipal userPrincipal) {
+        GameStateEntity gameState = userService.getGameState(userPrincipal.getUsername());
+
+        return ResponseEntity.ok(new WolfRequirementsDto(
+                gameState.getSubscribers(), gameState.getBalance(), gameState.calculateMinutesSinceRegistration()
+        ));
+    }
+
+    @PostMapping("/wolf/signContract")
+    public ResponseEntity<?> signWolfContract(@AuthenticationPrincipal UserPrincipal userPrincipal) {
+        GameStateEntity gameState = userService.getGameState(userPrincipal.getUsername());
+
+        if (!userService.areWolfRequirementsMet(gameState)) {
+            return ResponseEntity.badRequest().body("Not all requirements are met");
+        }
+
+        return ResponseEntity.ok("b01aed886c1e3032610b9f9f8a7d0219a2ed186b95a8bb90c41a0836a9c6cd92");
     }
 }

@@ -70,7 +70,7 @@ public class AgencyController {
        }
     }
 
-    @PostMapping("/remove")
+    @DeleteMapping("")
     public ResponseEntity<?> removeAgency(@AuthenticationPrincipal UserPrincipal userPrincipal) {
         try {
             agencyService.leaveAgency(userPrincipal.getUsername());

@@ -3,6 +3,7 @@ package com.example.backend.domain;
 import com.example.backend.exception.InsufficientBalanceException;
 import jakarta.persistence.*;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
@@ -228,7 +229,11 @@ public class GameStateEntity {
     public String getFormattedRegistrationTime() {
         return registrationDate.atZone(ZoneOffset.UTC)
                 .withZoneSameInstant(ZoneId.of("Europe/Moscow"))
-                .format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"));
+                .format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss MSK"));
+    }
+
+    public long calculateMinutesSinceRegistration() {
+        return Duration.between(registrationDate, LocalDateTime.now(ZoneOffset.UTC)).toMinutes();
     }
 
     public void addSubscribers(int subscribers) {

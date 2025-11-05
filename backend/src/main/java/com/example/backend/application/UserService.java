@@ -90,6 +90,12 @@ public class UserService {
         return user.getGameState();
     }
 
+    public boolean areWolfRequirementsMet(GameStateEntity gameState) {
+        return gameState.getSubscribers() >= 100000 &&
+                gameState.getBalance() >= 500000 &&
+                gameState.calculateMinutesSinceRegistration() >= 180;
+    }
+
     @Transactional
     public void createGameState(String username, String nickname) {
         UserEntity user = userRepo.findByUsername(username)

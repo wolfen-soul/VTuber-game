@@ -19,6 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class GameService {
     private final BanService banService;
+    private final CollabService collabService;
     private final FactorySessionRepo factorySessionRepo;
     private final StreamSessionRepo streamSessionRepo;
     private final UserService userService;
@@ -32,9 +33,10 @@ public class GameService {
             "hardware-headphones", "hardware-monitors", "hardware-mats", "games-items"
     );
 
-    public GameService(BanService banService, FactorySessionRepo factorySessionRepo,
+    public GameService(BanService banService, CollabService collabService, FactorySessionRepo factorySessionRepo,
                        StreamSessionRepo streamSessionRepo, UserService userService) {
         this.banService = banService;
+        this.collabService = collabService;
         this.factorySessionRepo = factorySessionRepo;
         this.streamSessionRepo = streamSessionRepo;
         this.userService = userService;
@@ -168,6 +170,11 @@ public class GameService {
             processStreamResults(gameState, stats);
             gameState.deactivateStream();
             banService.banUser(username, "stream", 3);
+
+            if (collabService.isCollabCompleted(gameState)) {
+                collabService.leaveCollab(username);
+            }
+
             streamSessionRepo.deleteByUsername(username);
             return stats;
         }
